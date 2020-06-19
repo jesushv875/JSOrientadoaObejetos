@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product App</title>
+    <!-- Bootswatch Theme -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="App.css">
+</head>
+
+<body>
+   
+    <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">User App</a>
+    </nav>
+
+
+    <div class="container">
+        <!-- APPLICATION -->
+        <div id="App" class="row pt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Add A User</h4>
+                    </div>
+                    <form id="user-form" class="card-body" name="f1">
+                        <div class="form-group">
+                            <input type="text" maxlength="50" id="name" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" placeholder="Nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="age" min="18" max="99" placeholder="Edad" class="form-control">
+                        </div>
+                        <div class="form-group" >
+                            <select  id="country" class="form-control"  name="pais"  onchange="cambia_provincia()">
+                                <option value="0" selected>Seleccione... 
+                                <option value="1" >1- España 
+                                <option value="2">2- Mexico 
+                                <option value="3">3- Colombia 
+                                <option value="4">4- Francia 
+                            </select>
+                            <select name=provincia class="form-control" id="provincia" > 
+                                <option value="-">- 
+                                </select> 
+                        </div>
+                        
+                        <input type="submit" value="Save" class="btn btn-primary btn-block">
+                    </form>
+                </div>
+                <script>
+                    var provincias_1=new Array("-","Andalucía","Asturias","Baleares","Canarias","Castilla y León","Castilla-La Mancha","...");
+                    var provincias_2=new Array("-","Aguascalientes","Baja California","Baja California Sur","Campeche","Coahuila de Zaragoza","Colima","Chiapas","Chihuahua","Distrito Federal","Durango","Guanajuato","Guerrero","Hidalgo","Jalisco","México","Michoacán de Ocampo","Morelos","Nayarit","Nuevo León","Oaxaca","Puebla","Querétaro","Quintana Roo","San Luis Potosí","Sinaloa","Sonora","Tabasco","Tamaulipas","Tlaxcala","Veracruz de Ignacio de la Llave","Yucatán","Zacatecas","...");
+                    var provincias_3=new Array("-","Cali","Santamarta","Medellin","Cartagena","...");
+                    var provincias_4=new Array("-","Aisne","Creuse","Dordogne","Essonne","Gironde ","...");
+                  
+                    var todasProvincias = [
+                      [],
+                      provincias_1,
+                      provincias_2,
+                      provincias_3,
+                      provincias_4,
+                    ];
+                  
+                    function cambia_provincia(){ 
+   	//tomo el valor del select del pais elegido 
+       var pais 
+       pais = document.f1.pais[document.f1.pais.selectedIndex].value 
+   	//miro a ver si el pais está definido 
+   	if (pais != 0) { 
+      	//si estaba definido, entonces coloco las opciones de la provincia correspondiente. 
+      	//selecciono el array de provincia adecuado 
+      	mis_provincias=todasProvincias[pais]
+      	//calculo el numero de provincias 
+      	num_provincias = mis_provincias.length 
+      	//marco el número de provincias en el select 
+      	document.f1.provincia.length = num_provincias 
+      	//para cada provincia del array, la introduzco en el select 
+      	for(i=0;i<num_provincias;i++){ 
+         	document.f1.provincia.options[i].value=mis_provincias[i] 
+         	document.f1.provincia.options[i].text=mis_provincias[i] 
+      	}	
+   	}else{ 
+      	//si no había provincia seleccionada, elimino las provincias del select 
+      	document.f1.provincia.length = 1 
+      	//coloco un guión en la única opción que he dejado 
+      	document.f1.provincia.options[0].value = "-" 
+      	document.f1.provincia.options[0].text = "-" 
+   	} 
+   	//marco como seleccionada la opción primera de provincia 
+   	document.f1.provincia.options[0].selected = true 
+}
+
+  </script>
+            </div>
+
+            <div id="user-list" class="col-md-8"></div>
+        </div>
+    </div>
+
+    <script src="App.js"></script>
+    
+</body>
+
+</html>
